@@ -4,4 +4,16 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <!-- etape 1 declarer la servlet -->
+  <servlet>
+    <servlet-name>DemoServlet</servlet-name>
+    <servlet-class>org.dta.br.HelloServlet</servlet-class>
+  </servlet>
+
+  <!-- etape 2 - mapping servlet -->
+
+  <servlet-mapping>
+    <servlet-name>DemoServlet</servlet-name>
+    <url-pattern>/demo</url-pattern>
+  </servlet-mapping>
 </web-app>
