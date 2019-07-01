@@ -2,11 +2,9 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>SGP - App</title>
-</head>
+<%@ include file="header.jsp" %>
 <body>
+<%@ include file="nav.jsp" %>
 <h1>Les collaborateurs</h1>
 <ul>
 <%

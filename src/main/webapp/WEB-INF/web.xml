@@ -13,6 +13,10 @@
     <servlet-name>EditerCollaborateursController</servlet-name>
     <servlet-class>dev.sgp.web.EditerCollaborateurController</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AjouterCollaborateursController</servlet-name>
+    <servlet-class>dev.sgp.web.AjouterCollaborateursController</servlet-class>
+  </servlet>
 
   <!-- etape 2 - mapping servlet -->
 
@@ -23,5 +27,9 @@
   <servlet-mapping>
     <servlet-name>EditerCollaborateursController</servlet-name>
     <url-pattern>/collaborateurs/editer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AjouterCollaborateursController</servlet-name>
+    <url-pattern>/collaborateurs/nouveau</url-pattern>
   </servlet-mapping>
 </web-app>
