@@ -57,7 +57,7 @@ public class EditerCollaborateurController extends HttpServlet {
                 resp.getWriter().write("<li>nom="+nom+"</li>");
             }
             if(prenom == null || prenom.equals("")){
-                resp.getWriter().write("<li>matricule="+prenom+"</li>");
+                resp.getWriter().write("<li>prenom="+prenom+"</li>");
             }
             resp.getWriter().write("</ul>");
         }
