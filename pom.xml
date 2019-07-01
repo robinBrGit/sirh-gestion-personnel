@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.br.dev.web</groupId>
-    <artifactId>intro_java_ee</artifactId>
+    <artifactId>sirh-gestion-personnel</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -36,7 +36,7 @@
     </dependencies>
 
     <build>
-        <finalName>intro_java_ee</finalName>
+        <finalName>sgp</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
