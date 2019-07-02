@@ -6,8 +6,8 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Collaborateurs <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Statistiques</a>
+                <a class="nav-item nav-link active" href="<c:url value='/collaborateurs/lister'/>">Collaborateurs <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="<c:url value='/statistiques'/>">Statistiques</a>
                 <a class="nav-item nav-link" href="#">Activités</a>
             </div>
         </div>
