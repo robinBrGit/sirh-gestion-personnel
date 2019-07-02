@@ -1,13 +1,23 @@
 package dev.sgp.web;
 
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.service.CollaborateurService;
+import dev.sgp.util.Constantes;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class AjouterCollaborateursController extends HttpServlet {
+
+    // recuperation du service
+    private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/collab/nouveauCollaborateurs.jsp")
@@ -27,10 +37,44 @@ public class AjouterCollaborateursController extends HttpServlet {
                 && (dateNaissance != null && !dateNaissance.equals(""))
                 && (adresse != null && !adresse.equals(""))
                 && (numSecu != null && !numSecu.equals(""))){
+            if(numSecu.length() == 15){
+                LocalDate dateNaissanceP = LocalDate.parse(dateNaissance, DateTimeFormatter.BASIC_ISO_DATE);
+                LocalDateTime dateAjout = LocalDateTime.now();
+                String matricule = "M".concat(String.valueOf(Collaborateur.nbCollab));
+                String emailPro = prenom+"."+nom+"@societe.com";
+
+                Collaborateur unCollab = new Collaborateur(matricule,nom,prenom,dateNaissanceP,adresse,
+                        numSecu,emailPro,"photo.png",dateAjout.atZone(ZoneId.of("Europe/Paris")),true);
+
+                collabService.sauvegarderCollaborateur(unCollab);
+            }
+            else {
+                resp.setStatus(400);
+                resp.getWriter().write("<div class=\"error\"><ul>");
+                resp.getWriter().write("<li>Le numero de sécurité sociale doit contenir 15 chiffres</li>");
+            }
+
 
         }
         else {
-
+            resp.setStatus(400);
+            resp.getWriter().write("<div class=\"error\"><ul>");
+            if(nom == null || nom.equals("")){
+                resp.getWriter().write("<li>Le nom n'est pas renseigné</li>");
+            }
+            if(prenom == null || prenom.equals("")){
+                resp.getWriter().write("<li>Le prenom n'est pas renseigné</li>");
+            }
+            if(dateNaissance == null || dateNaissance.equals("")){
+                resp.getWriter().write("<li>La date de naissance n'est pas renseigné</li>");
+            }
+            if(adresse == null || adresse.equals("")){
+                resp.getWriter().write("<li>L'adresse n'est pas renseigné</li>");
+            }
+            if(numSecu == null || numSecu.equals("")){
+                resp.getWriter().write("<li>Le numéro de sécuriter sociale n'est pas renseigné</li>");
+            }
+            resp.getWriter().write("</ul></div>");
         }
 
 

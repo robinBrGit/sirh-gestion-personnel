@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 public class Collaborateur {
+    public static int nbCollab = 0;
     private String matricule;
     private String nom;
     private String prenom;
@@ -19,6 +20,21 @@ public class Collaborateur {
     public Collaborateur() {
     }
 
+    public Collaborateur(String matricule, String nom, String prenom, LocalDate dateNaissance,
+                         String adresse, String numSecuSociale, String emailPro, String photo,
+                         ZonedDateTime dateHeureCreation, boolean actif) {
+        this.matricule = matricule;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.adresse = adresse;
+        this.numSecuSociale = numSecuSociale;
+        this.emailPro = emailPro;
+        this.photo = photo;
+        this.dateHeureCreation = dateHeureCreation;
+        this.actif = actif;
+        nbCollab++;
+    }
     //Getter & Setter
 
     public String getMatricule() {
