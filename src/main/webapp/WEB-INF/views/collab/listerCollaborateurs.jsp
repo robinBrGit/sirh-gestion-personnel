@@ -68,10 +68,10 @@
 </div>
 <div class="container-fluid mb-4">
     <div class="row">
-        <div class="col-md-12 col-lg-6 col-xl-4">
-            <c:forEach items="${listeCollab}" var="collab">
+        <c:forEach items="${listeCollab}" var="collab">
+            <div class="col-md-12 col-lg-6 col-xl-4">
                 <div class="card mb-4 shadow-sm">
-                    <div class="card-header"><c:out value="${collab.nom}"/> <c:out value="${collab.nom}"/>
+                    <div class="card-header"><c:out value="${collab.nom}"/> <c:out value="${collab.prenom}"/>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -100,8 +100,9 @@
                         </div>
                     </div>
                 </div>
-            </c:forEach>
-        </div>
+
+            </div>
+        </c:forEach>
     </div>
 </div>
 </body>
