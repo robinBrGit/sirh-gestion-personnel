@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class AjouterCollaborateursController extends HttpServlet {
 
@@ -38,15 +39,19 @@ public class AjouterCollaborateursController extends HttpServlet {
                 && (adresse != null && !adresse.equals(""))
                 && (numSecu != null && !numSecu.equals(""))){
             if(numSecu.length() == 15){
-                LocalDate dateNaissanceP = LocalDate.parse(dateNaissance, DateTimeFormatter.BASIC_ISO_DATE);
+                LocalDate dateNaissanceP = LocalDate.parse(dateNaissance, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 LocalDateTime dateAjout = LocalDateTime.now();
                 String matricule = "M".concat(String.valueOf(Collaborateur.nbCollab));
                 String emailPro = prenom+"."+nom+"@societe.com";
 
                 Collaborateur unCollab = new Collaborateur(matricule,nom,prenom,dateNaissanceP,adresse,
-                        numSecu,emailPro,"photo.png",dateAjout.atZone(ZoneId.of("Europe/Paris")),true);
+                        numSecu,emailPro,"photo.PNG",dateAjout.atZone(ZoneId.of("Europe/Paris")),true);
 
                 collabService.sauvegarderCollaborateur(unCollab);
+                List<Collaborateur> collaborateurs = collabService.listerCollaborateurs();
+                req.setAttribute("listeCollab", collaborateurs);
+                req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp")
+                        .forward(req, resp);
             }
             else {
                 resp.setStatus(400);
