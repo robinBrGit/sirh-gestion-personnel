@@ -13,12 +13,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AjouterCollaborateursController extends HttpServlet {
 
     // recuperation du service
     private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/collab/nouveauCollaborateurs.jsp")
@@ -32,6 +34,7 @@ public class AjouterCollaborateursController extends HttpServlet {
         String dateNaissance = req.getParameter("inputDateBirth");
         String adresse = req.getParameter("inputAdresse");
         String numSecu = req.getParameter("inputNumSecu");
+        List<String> error = new ArrayList<>();
 
         if((nom != null && !nom.equals(""))
                 && (prenom != null && !prenom.equals(""))
@@ -49,37 +52,61 @@ public class AjouterCollaborateursController extends HttpServlet {
 
                 collabService.sauvegarderCollaborateur(unCollab);
                 List<Collaborateur> collaborateurs = collabService.listerCollaborateurs();
-                req.setAttribute("listeCollab", collaborateurs);
-                req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp")
-                        .forward(req, resp);
+                resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");
             }
             else {
                 resp.setStatus(400);
-                resp.getWriter().write("<div class=\"error\"><ul>");
-                resp.getWriter().write("<li>Le numero de sécurité sociale doit contenir 15 chiffres</li>");
+                error.add("inputNumSecu");
+                req.setAttribute("Errors",error);
+                req.setAttribute("inputNom",nom);
+                req.setAttribute("inputPrenom",prenom);
+                req.setAttribute("inputDateBirth",dateNaissance);
+                req.setAttribute("inputAdresse",adresse);
+                req.getRequestDispatcher("/WEB-INF/views/collab/nouveauCollaborateurs.jsp")
+                        .forward(req, resp);
             }
 
 
         }
         else {
             resp.setStatus(400);
-            resp.getWriter().write("<div class=\"error\"><ul>");
             if(nom == null || nom.equals("")){
-                resp.getWriter().write("<li>Le nom n'est pas renseigné</li>");
+                error.add("inputNom");
+            }
+            else{
+                req.setAttribute("inputNom",nom);
             }
             if(prenom == null || prenom.equals("")){
-                resp.getWriter().write("<li>Le prenom n'est pas renseigné</li>");
+                error.add("inputPrenom");
             }
+            else {
+                req.setAttribute("inputPrenom",prenom);            }
             if(dateNaissance == null || dateNaissance.equals("")){
-                resp.getWriter().write("<li>La date de naissance n'est pas renseigné</li>");
+                error.add("inputDateBirth");
+            }
+            else {
+                req.setAttribute("inputDateBirth",dateNaissance);
             }
             if(adresse == null || adresse.equals("")){
-                resp.getWriter().write("<li>L'adresse n'est pas renseigné</li>");
+                error.add("inputAdresse");
+            }
+            else {
+                req.setAttribute("inputAdresse",adresse);
             }
             if(numSecu == null || numSecu.equals("")){
-                resp.getWriter().write("<li>Le numéro de sécuriter sociale n'est pas renseigné</li>");
+                error.add("inputNumSecu");
             }
-            resp.getWriter().write("</ul></div>");
+            else if(numSecu.length() == 15) {
+                req.setAttribute("inputNumSecu",numSecu);
+            }
+            else {
+                error.add("inputNumSecu");
+            }
+            req.setAttribute("Errors",error);
+            req.getRequestDispatcher("/WEB-INF/views/collab/nouveauCollaborateurs.jsp")
+                    .forward(req, resp);
+
+
         }
 
 

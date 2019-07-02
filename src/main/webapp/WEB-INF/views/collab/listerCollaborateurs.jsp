@@ -1,6 +1,9 @@
 <%@page import="java.util.List"%>
 <%@page import="dev.sgp.entite.Collaborateur"%>
+<%@page import="dev.sgp.entite.Departement"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
 <%@ include file="header.jsp" %>
@@ -8,7 +11,7 @@
 <%@ include file="nav.jsp" %>
 <div class="container-fluid m-1">
         <div class="text-right">
-            <button type="button" class="btn btn-dark">Ajouter un nouveau collaborateur</button>
+            <a class="btn btn-dark" href="<%=request.getContextPath()%>/collaborateurs/nouveau">Ajouter un nouveau collaborateur</a>
         </div>
     </div>
     <div class="container-fluid m-4">
@@ -47,9 +50,12 @@
             <div class="col-4 text-left">
                 <select class="custom-select" id="inputGroupSelect01">
                             <option selected>Tous</option>
-                            <option value="1">Comptabilité</option>
-                            <option value="2">Ressources humaines</option>
-                            <option value="3">Informatique</option>
+                            <% List<Departement> listeDepartement = (List<Departement>)request.getAttribute("listeDepartement");
+                            for(Departement unDepartement : listeDepartement){ %>
+                            <option id="<%=unDepartement.getId()%>"><%=unDepartement.getNom()%></option>
+                            <%
+                            }
+                             %>
                           </select>
             </div>
             <div class="col-4">
@@ -80,7 +86,7 @@ for (Collaborateur collab : listeCollab) {
                     <div class="col-4">
                         <p>xxxxxxxxxxxxxx</p>
                         <p>xxxxxxxxxxxxxx</p>
-                        <p>xxxxxxxxxxxxxx</p>
+                        <p><%= collab.getEmailPro()%></p>
                         <p>xxxxxxxxxxxxxx</p>
                     </div>
                 </div>
